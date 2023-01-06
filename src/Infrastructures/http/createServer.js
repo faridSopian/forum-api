@@ -13,6 +13,14 @@ const createServer = async (container) => {
     port: process.env.PORT,
   });
 
+  server.route({
+    method: 'GET',
+    path: '/',
+    handler: () => ({
+      value: 'Hello world!',
+    }),
+  });
+
   await server.register(Jwt);
 
   server.auth.strategy('forum_api_jwt', 'jwt', {
@@ -28,14 +36,6 @@ const createServer = async (container) => {
       credentials: {
         id: artifcats.decoded.payload.id,
       },
-    }),
-  });
-
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: () => ({
-      value: 'Hello world!',
     }),
   });
 
