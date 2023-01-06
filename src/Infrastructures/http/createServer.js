@@ -13,14 +13,6 @@ const createServer = async (container) => {
     port: process.env.PORT,
   });
 
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: () => ({
-      value: 'Hello world!',
-    }),
-  });
-
   await server.register(Jwt);
 
   server.auth.strategy('forum_api_jwt', 'jwt', {
@@ -92,6 +84,14 @@ const createServer = async (container) => {
 
     // jika bukan error, lanjutkan dengan response sebelumnya (tanpa terintervensi)
     return h.continue;
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/',
+    handler: () => ({
+      value: 'Hello world!',
+    }),
   });
 
   return server;
